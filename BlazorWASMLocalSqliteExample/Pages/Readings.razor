@@ -8,7 +8,7 @@
 <table>
    <thead>
         <tr>
-            <th>Guid</th>
+            <th>Time</th>
             <th>Blood Pressure</th>
             <th>Pulse</th>
         </tr>
@@ -17,7 +17,7 @@
         @foreach(var reading in user.BloodPressureReadings)
         {
             <tr>
-                <td>@reading.Guid</td>
+                <td>@reading.DateTimeOffset.LocalDateTime</td>
                 <td>@reading.Systolic/@reading.Diastolic</td>
                 <td>@reading.Pulse</td>
             </tr>
