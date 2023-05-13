@@ -3,15 +3,35 @@
 @using BlazorWASMLocalSqliteExample.Services
 @inject IUserService userService;
 
-<h3>Readings</h3>
+<h3>Readings for @user.Name</h3>
+<h5>Id: @user.Guid</h5>
+<table>
+   <thead>
+        <tr>
+            <th>Guid</th>
+            <th>Blood Pressure</th>
+            <th>Pulse</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var reading in user.BloodPressureReadings)
+        {
+            <tr>
+                <td>@reading.Guid</td>
+                <td>@reading.Systolic/@reading.Diastolic</td>
+                <td>@reading.Pulse</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @code {
     [Parameter, EditorRequired]
     public Guid UserId { get; set; }
-    private readonly User user = default!; 
+    private User user = default!; 
 
     protected override async Task OnInitializedAsync()
     {
-        user = await userService.GetUserByGuid(userId);
+        user = await userService.GetUserByGuidAsync(UserId);
     }
 }
