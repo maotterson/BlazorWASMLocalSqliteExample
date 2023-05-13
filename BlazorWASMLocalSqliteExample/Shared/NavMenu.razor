@@ -1,4 +1,8 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using BlazorWASMLocalSqliteExample.Models
+@using BlazorWASMLocalSqliteExample.Services
+@inject UserService UserService
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">BlazorWASMLocalSqliteExample</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -25,13 +29,15 @@
 @code {
     private bool collapseNavMenu = true;
     private Guid userId = default;
-    private string readingsUrl => $"readings/{userId}";
+    private string readingsUrl = string.Empty;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        userId = Guid.NewGuid();
+        var user = await UserService.GetSampleUserAsync();
+        userId = user.Guid;
+        readingsUrl = $"readings/{userId}";
     }
 
     private void ToggleNavMenu()
