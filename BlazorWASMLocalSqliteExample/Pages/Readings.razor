@@ -1,0 +1,17 @@
+﻿@page "/readings/{UserId}"
+@using BlazorWASMLocalSqliteExample.Models
+@using BlazorWASMLocalSqliteExample.Services
+@inject IUserService userService;
+
+<h3>Readings</h3>
+
+@code {
+    [Parameter, EditorRequired]
+    public Guid UserId { get; set; }
+    private readonly User user = default!; 
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await userService.GetUserByGuid(userId);
+    }
+}
