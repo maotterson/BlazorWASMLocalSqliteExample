@@ -1,6 +1,6 @@
 ﻿@using BlazorWASMLocalSqliteExample.Models
 @using BlazorWASMLocalSqliteExample.Services
-@inject UserService UserService
+@inject IUserService UserService
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -35,7 +35,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        user = await UserService.GetSampleUserAsync();
+        var userGuid = Guid.Empty; // sample user with all zero Guid
+        user = await UserService.GetUserByGuidAsync(userGuid);
         readingsUrl = $"readings/{user.Guid}";
     }
 
