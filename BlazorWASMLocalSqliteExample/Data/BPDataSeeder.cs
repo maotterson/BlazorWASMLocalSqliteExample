@@ -9,7 +9,7 @@ public class BPDataSeeder
     {
         _context = context;
     }
-    public void SeedCountries()
+    public void Seed()
     {
         try
         {

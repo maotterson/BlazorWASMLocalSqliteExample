@@ -13,5 +13,9 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddDbContext<BPDbContext>(options =>
                 options.UseSqlite("Data Source=mydatabase.db"));
+builder.Services.AddScoped<BPDataSeeder>();
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+var dbSeeder = host.Services.GetRequiredService<BPDataSeeder>();
+dbSeeder.Seed();
+await host.RunAsync();
