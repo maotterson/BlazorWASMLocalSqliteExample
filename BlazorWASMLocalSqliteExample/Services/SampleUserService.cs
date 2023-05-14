@@ -38,4 +38,9 @@ public class SampleUserService : IUserService
     {
         return _users.FirstOrDefault(x => x.Guid == guid)!;
     }
+
+    public Task CreateUserAsync(string name)
+    {
+        throw new NotImplementedException();
+    }
 }
