@@ -33,7 +33,7 @@ public class BPDataSeeder
     }
     public void SeedUsers()
     {
-        var user1 = new User { Name = "John Doe", Guid = Guid.NewGuid() };
+        var user1 = new User { Name = "John Doe", Guid = Guid.Empty };
         var user2 = new User { Name = "Jane Smith", Guid = Guid.NewGuid() };
         var user3 = new User { Name = "Bob Johnson", Guid = Guid.NewGuid() };
 

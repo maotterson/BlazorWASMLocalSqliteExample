@@ -35,9 +35,21 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var userGuid = Guid.Empty; // sample user with all zero Guid
-        user = await UserService.GetUserByGuidAsync(userGuid);
-        readingsUrl = $"readings/{user.Guid}";
+        try
+        {
+            var userGuid = Guid.Empty; // sample user with all zero Guid
+            user = await UserService.GetUserByGuidAsync(userGuid);
+            readingsUrl = $"readings/{user.Guid}";
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            user = new User
+            {
+                Guid = Guid.Empty,
+                Name = "Didn't load user"
+            }
+        }
     }
 
     private void ToggleNavMenu()
