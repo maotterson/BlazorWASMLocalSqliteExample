@@ -43,4 +43,9 @@ public class SampleUserService : IUserService
     {
         throw new NotImplementedException();
     }
+
+    public Task<List<User>> GetAllUsersAsync()
+    {
+        throw new NotImplementedException();
+    }
 }

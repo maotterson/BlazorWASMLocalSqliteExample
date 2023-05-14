@@ -27,6 +27,14 @@ public class UserService : IUserService
         context.SaveChanges();
         return;
     }
+    public async Task<List<User>> GetAllUsersAsync()
+    {
+        using var context = await _dbFactory.CreateDbContextAsync();
+        var users = await context.Users
+            .Include(u => u.BloodPressureReadings)
+            .ToListAsync();
+        return users;
+    }
     public async Task<User> GetUserByGuidAsync(Guid guid)
     {
         using var context = await _dbFactory.CreateDbContextAsync();

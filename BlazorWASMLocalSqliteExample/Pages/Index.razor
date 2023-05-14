@@ -1,17 +1,30 @@
 ﻿@page "/"
-@inject 
+@using BlazorWASMLocalSqliteExample.Models
+@using BlazorWASMLocalSqliteExample.Services
+@inject IUserService UserService
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Users</h1>
+@foreach(var user in users)
+{
+    
+}
 
-<button @onclick="Add">Add User</button>
+<button @onclick="AddUser">Add User</button>
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 @code{
-    public void Add()
+    public List<User> users { get; set; } = new List<User>();
+
+    protected async override Task OnInitializedAsync()
     {
-        
+        users = await UserService.GetAllUsersAsync();
+    }
+    public async Task AddUser()
+    {
+        await UserService.CreateUserAsync("John Doe");
+        StateHasChanged();
     }
 }
