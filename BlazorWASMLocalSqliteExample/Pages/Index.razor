@@ -6,17 +6,33 @@
 <PageTitle>Index</PageTitle>
 
 <h1>Users</h1>
-@foreach(var user in users)
-{
-    
-}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Guid</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach(var user in users)
+    {
+      <tr>
+        <td><a href="/readings/@user.Guid">@user.Guid</a></td>
+        <td><a href="/readings/@user.Guid">@user.Name</a></td>
+      </tr>
+    }
+  </tbody>
+</table>
 
+
+<InputText id="name" @bind-Value="NewUserName" />
 <button @onclick="AddUser">Add User</button>
 
 <SurveyPrompt Title="How is Blazor working for you?" />
 
 @code{
     public List<User> users { get; set; } = new List<User>();
+    public string NewUserName { get; set; } = String.Empty;
 
     protected async override Task OnInitializedAsync()
     {
@@ -24,7 +40,8 @@
     }
     public async Task AddUser()
     {
-        await UserService.CreateUserAsync("John Doe");
+        await UserService.CreateUserAsync(NewUserName);
+        NewUserName = String.Empty;
         StateHasChanged();
     }
 }
